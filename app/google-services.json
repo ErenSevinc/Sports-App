@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "44380897332",
+    "project_id": "sports-betting-app-734f9",
+    "storage_bucket": "sports-betting-app-734f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44380897332:android:edc0ae3ab0a1d8c6038a61",
+        "android_client_info": {
+          "package_name": "com.example.sportsbettingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44380897332-tt9cch9qusmnaouoo4e568duq64oujka.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIeIO90oM8nlIO6NGrF3LLgsHASPE280M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44380897332-tt9cch9qusmnaouoo4e568duq64oujka.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

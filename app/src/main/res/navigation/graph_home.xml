@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/graph_home"
+    app:startDestination="@id/leagueFragment">
+    <fragment
+        android:id="@+id/leagueFragment"
+        android:name="com.example.sportsbettingapp.ui.league.LeagueFragment"
+        android:label="BetListFragment"
+        tools:layout="@layout/fragment_league" >
+        <action
+            android:id="@+id/navigateToLeagueDetail"
+            app:destination="@id/leagueDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/leagueDetailFragment"
+        android:name="com.example.sportsbettingapp.ui.league.detail.LeagueDetailFragment"
+        android:label="BetDetailFragment"
+        tools:layout="@layout/fragment_league_detail" >
+        <argument
+            android:name="leagueDetail"
+            app:argType="com.example.sportsbettingapp.data.model.LeagueResponseModel" />
+        <action
+            android:id="@+id/navigateToMatchDetail"
+            app:destination="@id/matchDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/matchDetailFragment"
+        android:name="com.example.sportsbettingapp.ui.league.matchdetail.MatchDetailFragment"
+        android:label="MatchDetailFragment"
+        tools:layout="@layout/fragment_match_detail">
+
+        <argument
+            android:name="matchBetArgs"
+            app:argType="com.example.sportsbettingapp.data.argumentmodel.MatchBetArgument" />
+        <action
+            android:id="@+id/navigateToCoupon"
+            app:destination="@id/couponFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/couponFragment"
+        android:name="com.example.sportsbettingapp.ui.coupon.CouponFragment"
+        android:label="coupon_fragment"
+        tools:layout="@layout/fragment_coupon" />
+    <fragment
+        android:id="@+id/upcomingMatchFragment"
+        android:name="com.example.sportsbettingapp.ui.upcoming.UpcomingMatchFragment"
+        android:label="UpcomingMatchFragment" >
+        <action
+            android:id="@+id/navigateToBetDetail"
+            app:destination="@id/matchDetailFragment" />
+    </fragment>
+
+
+
+</navigation>
