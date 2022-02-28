@@ -14,9 +14,10 @@ API calls are provided by The-odds-api. The API key has been added to the applic
 The selected match, the bet added to the coupon, the bet removed from the coupon are reported In the application.
 
 ## Used Technologies  in App
-Dagger-Hilt
-Firebase
-Retrofit
-RxJava
-Navigation Component
-ScrollDecorator
+Dagger-Hilt,
+Firebase,
+Retrofit,
+RxJava,
+Navigation Component,
+SwipeDecorator
+and used MVVM architecture
