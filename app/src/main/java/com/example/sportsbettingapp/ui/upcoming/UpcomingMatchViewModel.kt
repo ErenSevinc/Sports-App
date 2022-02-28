@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UpcomingMatchViewModel @Inject constructor(
     private val repository: Repository
-): ViewModel() {
+) : ViewModel() {
 
     private val _matchList = MutableLiveData<List<MatchBetModel>>()
     val matchList: LiveData<List<MatchBetModel>> = _matchList
@@ -29,9 +29,10 @@ class UpcomingMatchViewModel @Inject constructor(
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
 
-    fun getMatches() {
+    fun getMatches(title: String = "upcoming") {
+        _loading.value = true
         viewModelScope.launch {
-            repository.getMatches("upcoming")
+            repository.getMatches(title)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<List<MatchBetModel>>() {
@@ -40,6 +41,7 @@ class UpcomingMatchViewModel @Inject constructor(
                         _loading.value = false
                         _error.value = false
                     }
+
                     override fun onError(e: Throwable) {
                         _loading.value = false
                         _error.value = true

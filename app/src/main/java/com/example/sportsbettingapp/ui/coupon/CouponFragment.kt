@@ -12,10 +12,8 @@ import com.example.sportsbettingapp.data.enum.FirebaseEvent
 import com.example.sportsbettingapp.databinding.FragmentCouponBinding
 import com.example.sportsbettingapp.presenter.SwipeCouponDelete
 import com.example.sportsbettingapp.presenter.adapters.coupon.CouponAdapter
-import com.example.sportsbettingapp.ui.home.HomeViewModel
-import com.google.firebase.analytics.FirebaseAnalytics
+import com.example.sportsbettingapp.ui.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -24,8 +22,6 @@ class CouponFragment : Fragment() {
     private val activityViewModel by activityViewModels<HomeViewModel>()
     private lateinit var adapter: CouponAdapter
 
-    @Inject
-    lateinit var analytics: FirebaseAnalytics
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,20 +33,41 @@ class CouponFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activityViewModel.betList.observe(viewLifecycleOwner) {
-            adapter = CouponAdapter(it)
-            binding.rvCoupon.adapter = adapter
-        }
+        activityViewModel.setToolbarTitle("Coupon")
+        setSwipeDelete()
+        observeLiveData()
+    }
 
+    private fun setSwipeDelete() {
         val swipeCouponDelete = object : SwipeCouponDelete(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                activityViewModel.sendEvent(
+                    FirebaseEvent.RemoveCart, Pair(
+                        "BET_ID",
+                        activityViewModel.betList.value?.get(viewHolder.adapterPosition)?.id ?: ""
+                    )
+                )
                 activityViewModel.removeBet(viewHolder.adapterPosition)
-                activityViewModel.sendEvent(FirebaseEvent.RemoveCart)
             }
         }
-
         val touchHelper = ItemTouchHelper(swipeCouponDelete)
         touchHelper.attachToRecyclerView(binding.rvCoupon)
+    }
+
+    private fun observeLiveData() {
+        activityViewModel.betList.observe(viewLifecycleOwner) { bet ->
+            bet?.let {
+                binding.tvError.visibility = View.GONE
+                adapter = CouponAdapter(bet)
+                binding.rvCoupon.adapter = adapter
+                binding.title.text = "Total Price: ${activityViewModel.calculateBetTotal()}"
+            }.run {
+                binding.tvError.visibility = View.VISIBLE
+            }
+        }
+        activityViewModel.error.observe(viewLifecycleOwner) {
+            binding.tvError.visibility = if (it) View.VISIBLE else View.GONE
+        }
     }
 
 }

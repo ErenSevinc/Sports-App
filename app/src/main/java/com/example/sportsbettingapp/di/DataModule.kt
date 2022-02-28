@@ -20,16 +20,13 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DataModule {
     private const val BASE_URL = "https://api.the-odds-api.com/v4/"
-    private const val API_KEY = "1b5d935ce8a722b9e49ae87706a6cdbf"
 
-    //Loglamayı sağlar
     @Provides
     @Singleton
     fun provideLoggingInterceptor() : HttpLoggingInterceptor {
         return HttpLoggingInterceptor()
     }
 
-    //rest istekleri atmamızı sağlar
     @Provides
     @Singleton
     fun provideOkHttpClient(
@@ -40,7 +37,6 @@ object DataModule {
             .build()
     }
 
-    //rest sonucunda dönen json u çevirmemizi sağlar
     @Provides
     @Singleton
     fun provideGson(): Gson {
@@ -48,7 +44,6 @@ object DataModule {
             .create()
     }
 
-    //retrofit üzerinden verilere ulaşmamızı sağlar
     @Provides
     @Singleton
     fun provideApiClient(
@@ -64,8 +59,6 @@ object DataModule {
             .build()
     }
 
-
-    // retrofit i interface e bağlar
     @Provides
     @Singleton
     fun provideApiService (retrofit: Retrofit) : ApiService {

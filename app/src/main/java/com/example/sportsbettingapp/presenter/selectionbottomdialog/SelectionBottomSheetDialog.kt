@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import com.example.sportsbettingapp.databinding.SelectionBottomSheetBinding
 import com.example.sportsbettingapp.presenter.BaseBottomDialog
 
-class SelectionBottomSheetDialog(val onCLickCoupon: () -> Unit, val onClickOther: () -> Unit) :
+class SelectionBottomSheetDialog(private val onCLickCoupon: () -> Unit, private val onClickOther: () -> Unit) :
     BaseBottomDialog() {
     override fun getCustomView(inflater: LayoutInflater, container: ViewGroup?): View? {
         val binding: SelectionBottomSheetBinding =

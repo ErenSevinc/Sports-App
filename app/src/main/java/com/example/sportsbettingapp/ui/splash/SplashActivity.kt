@@ -7,7 +7,7 @@ import android.os.Handler
 import android.view.animation.AnimationUtils
 import com.example.sportsbettingapp.R
 import com.example.sportsbettingapp.databinding.ActivitySplashBinding
-import com.example.sportsbettingapp.ui.home.HomeActivity
+import com.example.sportsbettingapp.ui.HomeActivity
 
 import dagger.hilt.android.AndroidEntryPoint
 

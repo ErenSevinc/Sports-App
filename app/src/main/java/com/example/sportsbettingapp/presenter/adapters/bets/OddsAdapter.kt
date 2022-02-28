@@ -1,5 +1,6 @@
 package com.example.sportsbettingapp.presenter.adapters.bets
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,9 +19,9 @@ class OddsAdapter(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemOddNewBinding.inflate(inflater, null, false)
+        val binding = ItemOddNewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
+
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -31,23 +32,35 @@ class OddsAdapter(
     override fun getItemCount() = list.size
 
     inner class ViewHolder(val binding: ItemOddNewBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(market: Market, listener: (market: Market, position: Int, bookmakerPosition: Int) -> Unit) {
+        @SuppressLint("SetTextI18n")
+        fun bind(
+            market: Market,
+            listener: (market: Market, position: Int, bookmakerPosition: Int) -> Unit
+        ) {
             binding.marketKey.text = market.key.uppercase()
 
             if (market.outcomes.size == 3) {
-                binding.bt1.text = market.outcomes[0].price.toString()
-                binding.bt2.text = market.outcomes[1].price.toString()
-                binding.btX.text = market.outcomes[2].price.toString()
+                binding.bt1.text = "1\n${market.outcomes[0].price} $"
+                binding.bt2.text = "2\n${market.outcomes[1].price} $"
+                binding.btX.text = "X\n${market.outcomes[2].price} $"
                 binding.btX.visibility = View.VISIBLE
             } else {
-                binding.bt1.text = market.outcomes[0].price.toString()
-                binding.bt2.text = market.outcomes[1].price.toString()
+                binding.bt1.text =
+                    if (market.outcomes[0].point != null)
+                        "${market.outcomes[0].point}\n${market.outcomes[0].name}\n${market.outcomes[0].price} $"
+                    else
+                        "${market.outcomes[0].name}\n${market.outcomes[0].price} $"
+                binding.bt2.text =
+                    if (market.outcomes[1].point != null)
+                        "${market.outcomes[1].point}\n${market.outcomes[1].name}\n${market.outcomes[1].price} $"
+                    else
+                        "${market.outcomes[1].name}\n${market.outcomes[1].price} $"
                 binding.btX.visibility = View.GONE
             }
 
             binding.bt1.setOnClickListener {
                 disableButton()
-                listener.invoke(market, 0, rootPosition )
+                listener.invoke(market, 0, rootPosition)
             }
             binding.bt2.setOnClickListener {
                 disableButton()
@@ -59,7 +72,7 @@ class OddsAdapter(
             }
         }
 
-        private fun disableButton(){
+        private fun disableButton() {
             binding.bt1.isEnabled = false
             binding.bt2.isEnabled = false
             binding.btX.isEnabled = false

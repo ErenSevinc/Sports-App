@@ -37,9 +37,9 @@ class LeagueDetailViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<List<MatchScoreModel>>() {
                     override fun onSuccess(t: List<MatchScoreModel>) {
-                        _matchList.value = t
                         _error.value = false
                         _loading.value = false
+                        _matchList.value = t
                     }
 
                     override fun onError(e: Throwable) {

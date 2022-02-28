@@ -47,12 +47,9 @@ class MatchDetailViewModel @Inject constructor(
                         _matchBet.value = t.find {
                             it.id == item.id
                         }
-
                         _error.value = false
                         _loading.value = false
-
                     }
-
                     override fun onError(e: Throwable) {
                         _loading.value = false
                         _error.value = true

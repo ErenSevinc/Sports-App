@@ -1,5 +1,6 @@
 package com.example.sportsbettingapp.presenter.extension
 
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -8,4 +9,10 @@ fun String.toDate(): String {
     val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
     val date = parser.parse(this)
     return dateFormat.format(date)
+}
+
+
+fun Double.toStringFormatted(): String {
+    val formatter = DecimalFormat("##.##")
+    return formatter.format(this)
 }

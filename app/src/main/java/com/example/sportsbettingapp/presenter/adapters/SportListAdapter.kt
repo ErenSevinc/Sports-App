@@ -36,7 +36,6 @@ class SportListAdapter(
             }
             "Aussie Rules" -> {
                 holder.binding.sportImage.setImageResource(R.drawable.aussie)
-
             }
             "Baseball" -> {
                 holder.binding.sportImage.setImageResource(R.drawable.baseball)
@@ -72,15 +71,7 @@ class SportListAdapter(
         }
     }
 
-
     override fun getItemCount(): Int {
         return list.size
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun refleshList(newList: List<String>) {
-        list.clear()
-        list.addAll(newList)
-        notifyDataSetChanged()
     }
 }

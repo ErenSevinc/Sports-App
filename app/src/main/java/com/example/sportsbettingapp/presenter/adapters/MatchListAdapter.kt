@@ -7,14 +7,22 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportsbettingapp.data.argumentmodel.MatchBetArgument
 import com.example.sportsbettingapp.data.model.MatchBetModel
+import com.example.sportsbettingapp.data.model.MatchScoreModel
 import com.example.sportsbettingapp.databinding.ItemMatchBodyBinding
 import com.example.sportsbettingapp.presenter.adapters.bets.BookmakersAdapter
 import com.example.sportsbettingapp.presenter.extension.toDate
 import com.example.sportsbettingapp.ui.league.detail.LeagueDetailFragmentDirections
 import com.example.sportsbettingapp.ui.upcoming.UpcomingMatchFragmentDirections
 
-class MatchListAdapter(private val list: List<MatchBetModel>) : RecyclerView.Adapter<MatchListAdapter.ViewHolder>() {
+class MatchListAdapter() : RecyclerView.Adapter<MatchListAdapter.ViewHolder>() {
 
+    private var list: MutableList<MatchBetModel> = mutableListOf()
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setItems(newList: MutableList<MatchBetModel>) {
+        list = newList
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -31,11 +39,8 @@ class MatchListAdapter(private val list: List<MatchBetModel>) : RecyclerView.Ada
         return list.size
     }
 
-    fun refleshList(list: List<Pair<MatchBetModel, String>>) {
 
-    }
-
-    inner class ViewHolder(val binding: ItemMatchBodyBinding) :
+    class ViewHolder(val binding: ItemMatchBodyBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(item: MatchBetModel) {
@@ -44,6 +49,15 @@ class MatchListAdapter(private val list: List<MatchBetModel>) : RecyclerView.Ada
             binding.home.text = item.homeTeam
             binding.away.text = item.awayTeam
             binding.bet.setOnClickListener {
+                val action = UpcomingMatchFragmentDirections.navigateToBetDetail(
+                    MatchBetArgument(
+                        id = item.id,
+                        sportKey = item.sportKey
+                    )
+                )
+                Navigation.findNavController(it).navigate(action)
+            }
+            binding.root.setOnClickListener {
                 val action = UpcomingMatchFragmentDirections.navigateToBetDetail(
                     MatchBetArgument(
                         id = item.id,

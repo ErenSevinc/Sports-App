@@ -15,10 +15,8 @@ import com.example.sportsbettingapp.databinding.FragmentMatchDetailNewBinding
 import com.example.sportsbettingapp.presenter.adapters.bets.BookmakersAdapter
 import com.example.sportsbettingapp.presenter.extension.toDate
 import com.example.sportsbettingapp.presenter.selectionbottomdialog.SelectionBottomSheetDialog
-import com.example.sportsbettingapp.ui.home.HomeViewModel
-import com.google.firebase.analytics.FirebaseAnalytics
+import com.example.sportsbettingapp.ui.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MatchDetailFragment : Fragment() {
@@ -38,14 +36,25 @@ class MatchDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val matchInformation = MatchDetailFragmentArgs.fromBundle(requireArguments()).matchBetArgs
         viewModel.getMatches(matchInformation)
-        activityViewModel.sendEvent(FirebaseEvent.MatchDetail, Pair("matchId", matchInformation.id))
+        activityViewModel.setToolbarTitle("Match")
+        activityViewModel.sendEvent(FirebaseEvent.MatchDetail, Pair("MATCH_ID", matchInformation.id))
         observeLiveData()
+    }
+
+    private fun showDialog() {
+        SelectionBottomSheetDialog({
+            findNavController().navigate(MatchDetailFragmentDirections.navigateToCoupon())
+        }, {
+            findNavController().popBackStack()
+        })
+            .setTitle("Warning")
+            .show(childFragmentManager, null)
     }
 
     private fun observeLiveData() {
         viewModel.matchBet.observe(viewLifecycleOwner) { match ->
             match?.let {
-                binding.homeAway.text = match.homeTeam + " - " + match.awayTeam
+                binding.homeAway.text = match.teams
                 binding.date.text = match.commenceTime.toDate()
 
                 val adapter =
@@ -63,14 +72,12 @@ class MatchDetailFragment : Fragment() {
                         )
                         Log.d("MarketSelect", bet.toString())
                         activityViewModel.addBet(bet)
-                        activityViewModel.sendEvent(FirebaseEvent.AddCart, Pair("betId", bet.id))
-                        SelectionBottomSheetDialog({
-                            findNavController().navigate(MatchDetailFragmentDirections.navigateToCoupon())
-                        }, {
-                            findNavController().popBackStack()
-                        })
-                            .setTitle("Selection")
-                            .show(childFragmentManager, null)
+                        activityViewModel.sendEvent(
+                            FirebaseEvent.AddCart,
+                            Pair("BET_ID", bet.id),
+                            Pair("BET_ITEM", bet.oddName)
+                        )
+                        showDialog()
                     }
                 binding.bookmakerList.adapter = adapter
             }
@@ -89,7 +96,7 @@ class MatchDetailFragment : Fragment() {
                 if (it) {
                     binding.loading.visibility = View.VISIBLE
                     binding.tvError.visibility = View.GONE
-
+                    binding.bookmakerList.visibility = View.GONE
                 } else {
                     binding.loading.visibility = View.GONE
                 }

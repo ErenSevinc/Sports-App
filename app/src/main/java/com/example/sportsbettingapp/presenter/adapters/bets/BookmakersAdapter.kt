@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sportsbettingapp.data.model.Bookmaker
 import com.example.sportsbettingapp.data.model.Market
 import com.example.sportsbettingapp.databinding.ItemBookmakerNewBinding
+import com.example.sportsbettingapp.databinding.ItemSportBinding
+import com.example.sportsbettingapp.presenter.adapters.SportListAdapter
 
 class BookmakersAdapter(
     val list: List<Bookmaker>,
@@ -15,8 +17,7 @@ class BookmakersAdapter(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemBookmakerNewBinding.inflate(inflater, null, false)
+        val binding = ItemBookmakerNewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -28,7 +29,6 @@ class BookmakersAdapter(
     override fun getItemCount() = list.size
 
     inner class ViewHolder(val binding: ItemBookmakerNewBinding) : RecyclerView.ViewHolder(binding.root) {
-
         fun bind(bookmaker: Bookmaker, listener: (market: Market, position: Int, bookmakerPosition: Int) -> Unit) {
             binding.bookmakerTitle.text = bookmaker.title
             val adapter = OddsAdapter(bookmaker.markets, list.indexOf(bookmaker) , listener)

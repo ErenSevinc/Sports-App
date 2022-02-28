@@ -10,7 +10,10 @@ data class MatchBetModel(
     @SerializedName("home_team") val homeTeam: String,
     @SerializedName("away_team") val awayTeam: String,
     @SerializedName("bookmakers") val bookmakers: MutableList<Bookmaker>
-)
+){
+    val teams get() = "$homeTeam $awayTeam"
+    val filteredByMatchFactor get() = "$sportKey $sportTitle $homeTeam $awayTeam"
+}
 
 data class Bookmaker(
     @SerializedName("key") val key: String,

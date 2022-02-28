@@ -1,6 +1,5 @@
 package com.example.sportsbettingapp.presenter.adapters.coupon
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +12,8 @@ class CouponAdapter(
     //private val listener: (market: Market, position: Int) -> Unit
 ) : RecyclerView.Adapter<CouponAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemCouponBinding.inflate(inflater, null, false)
-        return ViewHolder(binding)
+        val binding = ItemCouponBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CouponAdapter.ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

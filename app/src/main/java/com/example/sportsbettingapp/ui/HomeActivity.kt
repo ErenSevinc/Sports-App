@@ -1,17 +1,14 @@
-package com.example.sportsbettingapp.ui.home
+package com.example.sportsbettingapp.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.sportsbettingapp.R
 import com.example.sportsbettingapp.databinding.ActivityHomeBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

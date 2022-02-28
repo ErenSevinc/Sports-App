@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sportsbettingapp.presenter.adapters.LeaguesAdapter
 import com.example.sportsbettingapp.presenter.adapters.SportListAdapter
 import com.example.sportsbettingapp.databinding.FragmentLeagueBinding
-import com.example.sportsbettingapp.ui.home.HomeViewModel
+import com.example.sportsbettingapp.ui.HomeViewModel
 import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -77,7 +77,6 @@ class LeagueFragment : Fragment() {
 
 
     private fun observeLiveData() {
-
         viewModel.tournametList.observe(viewLifecycleOwner) {
             binding.rvTournament.visibility = View.VISIBLE
             leaguesAdapter.refleshList(it.toMutableList())
@@ -103,18 +102,6 @@ class LeagueFragment : Fragment() {
             }
         }
     }
-
-//    private fun sendEvent() {
-//        analytics.logEvent("match_detail") {
-//            param(FirebaseAnalytics.Param.ITEM_NAME, "asd")
-//        }
-////        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-////            param(FirebaseAnalytics.Param.ITEM_ID, id)
-////            param(FirebaseAnalytics.Param.ITEM_NAME, name)
-////            param(FirebaseAnalytics.Param.CONTENT_TYPE, "image")
-////        }
-//    }
-
 }
 
 
