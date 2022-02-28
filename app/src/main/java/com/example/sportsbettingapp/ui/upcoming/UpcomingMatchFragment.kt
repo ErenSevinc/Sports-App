@@ -39,7 +39,7 @@ class UpcomingMatchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.getMatches()
-        activityViewModel.setToolbarTitle("Upcoming Matches")
+        activityViewModel.setToolbarTitle("Bulletin")
 
         setSearchView()
         observeLiveData()
@@ -68,10 +68,6 @@ class UpcomingMatchFragment : Fragment() {
                 return true
             }
         })
-    }
-
-    fun setSportsAdapter() {
-
     }
 
     private fun observeLiveData() {

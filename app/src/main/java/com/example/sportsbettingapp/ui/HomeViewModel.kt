@@ -64,10 +64,10 @@ class HomeViewModel @Inject constructor(
     }
 
     fun calculateBetTotal(): String {
-        var total = 0.0
+        var total = 1.0
         bets.forEach { bet ->
             bet.oddPrice?.let {
-                total += it
+                total *= it
             }
         }
         return total.toStringFormatted()

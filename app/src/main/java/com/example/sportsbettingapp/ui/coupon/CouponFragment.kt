@@ -60,7 +60,12 @@ class CouponFragment : Fragment() {
                 binding.tvError.visibility = View.GONE
                 adapter = CouponAdapter(bet)
                 binding.rvCoupon.adapter = adapter
-                binding.title.text = "Total Price: ${activityViewModel.calculateBetTotal()}"
+                if (activityViewModel.calculateBetTotal() == "1"){
+                    binding.title.text = ""
+                }
+                else {
+                    binding.title.text = "Total Price: ${activityViewModel.calculateBetTotal()} $"
+                }
             }.run {
                 binding.tvError.visibility = View.VISIBLE
             }
